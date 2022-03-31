@@ -1,0 +1,1372 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "B2BProject",
+        "description": "Documentation for the Application API",
+        "version": "1.0.0"
+    },
+    "basePath": "/api",
+    "servers": [
+        {
+            "url": "http://B2BProject.test/api",
+            "description": "B2BProject Server #1"
+        }
+    ],
+    "paths": {
+        "/v1/{fallbackPlaceholder}": {
+            "get": {
+                "summary": "",
+                "description": "",
+                "deprecated": false,
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "(Unauthorized) Invalid or missing Access Token"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "fallbackPlaceholder",
+                        "in": "path",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "tags": [
+                    "v1"
+                ]
+            }
+        },
+        "/v1/auth/login": {
+            "post": {
+                "summary": "Get a JWT via given credentials.",
+                "description": "",
+                "deprecated": false,
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                          "application/json": {
+                            "schema": {
+                              "type": "object",
+                              "properties": {
+                                "access_token": {
+                                  "type": "string",
+                                  "example": ""
+                                },
+                                "token_type": {
+                                  "type": "string",
+                                  "example": "bearer"
+                                },
+                                "expires_in": {
+                                  "type": "integer",
+                                  "example": 3600
+                                }
+                              }
+                            }
+                          }
+                        }
+                    },
+                    "401": {
+                        "description": "(Unauthorized) Invalid or missing Access Token"
+                    }
+                },
+              "parameters": [
+                {
+                  "name": "email",
+                  "in": "path",
+                  "required": true,
+                  "description": "",
+                  "schema": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "name": "password",
+                  "in": "path",
+                  "required": true,
+                  "description": "",
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              ],
+                "tags": [
+                    "v1"
+                ]
+            }
+        },
+        "/v1/auth/register": {
+            "post": {
+                "summary": "User registration",
+                "description": "",
+                "deprecated": false,
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                          "application/json": {
+                            "schema": {
+                              "type": "object",
+                              "properties": {
+                                "message": {
+                                  "type": "string",
+                                  "example": "User successfully registered"
+                                },
+                                "user": {
+                                      "$ref": "#/components/schemas/User"
+                                }
+                              }
+                            }
+                          }
+                        }
+                    },
+                    "401": {
+                        "description": "(Unauthorized) Invalid or missing Access Token"
+                    }
+                },
+              "parameters": [
+                {
+                  "name": "name",
+                  "in": "path",
+                  "required": true,
+                  "description": "",
+                  "schema": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "name": "email",
+                  "in": "path",
+                  "required": true,
+                  "description": "",
+                  "schema": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "name": "password",
+                  "in": "path",
+                  "required": true,
+                  "description": "",
+                  "schema": {
+                    "type": "integer"
+                  }
+                },
+                {
+                  "name": "password_confirmation",
+                  "in": "path",
+                  "required": true,
+                  "description": "",
+                  "schema": {
+                    "type": "integer"
+                  }
+                }
+              ],
+                "tags": [
+                    "v1"
+                ]
+            }
+        },
+        "/v1/auth/logout": {
+            "post": {
+                "summary": "Log the user out (Invalidate the token).",
+                "description": "",
+                "deprecated": false,
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "(Unauthorized) Invalid or missing Access Token"
+                    }
+                },
+                "tags": [
+                    "v1"
+                ]
+            }
+        },
+        "/v1/auth/refresh": {
+            "post": {
+                "summary": "Refresh a token.",
+                "description": "",
+                "deprecated": false,
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "(Unauthorized) Invalid or missing Access Token"
+                    }
+                },
+                "tags": [
+                    "v1"
+                ]
+            }
+        },
+        "/v1/auth/me": {
+            "post": {
+                "summary": "Get the authenticated User.",
+                "description": "",
+                "deprecated": false,
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "(Unauthorized) Invalid or missing Access Token"
+                    }
+                },
+                "tags": [
+                    "v1"
+                ]
+            }
+        },
+        "/v1/category": {
+            "get": {
+                "summary": "Get all category",
+                "description": "",
+                "deprecated": false,
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Category"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "(Unauthorized) Invalid or missing Access Token"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "v1"
+                ]
+            },
+            "post": {
+                "summary": "Save single category",
+                "description": "",
+                "deprecated": false,
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Category"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "(Unauthorized) Invalid or missing Access Token"
+                    }
+                },
+              "parameters": [
+                {
+                  "name": "name",
+                  "in": "path",
+                  "required": true,
+                  "description": "",
+                  "schema": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "name": "url_key",
+                  "in": "path",
+                  "required": true,
+                  "description": "",
+                  "schema": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "name": "description",
+                  "in": "path",
+                  "required": true,
+                  "description": "",
+                  "schema": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "name": "image",
+                  "in": "path",
+                  "required": true,
+                  "description": "",
+                  "schema": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "name": "parent_id",
+                  "in": "path",
+                  "required": true,
+                  "description": "",
+                  "schema": {
+                    "type": "integer"
+                  }
+                }
+              ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "v1"
+                ]
+            }
+        },
+        "/v1/category/{category}": {
+            "get": {
+                "summary": "Show single category",
+                "description": "",
+                "deprecated": false,
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Category"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "(Unauthorized) Invalid or missing Access Token"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "category",
+                        "in": "path",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "v1"
+                ]
+            },
+            "put": {
+                "summary": "Update single category",
+                "description": "",
+                "deprecated": false,
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Category"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "(Unauthorized) Invalid or missing Access Token"
+                    }
+                },
+              "parameters": [
+                {
+                  "name": "name",
+                  "in": "path",
+                  "required": true,
+                  "description": "",
+                  "schema": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "name": "url_key",
+                  "in": "path",
+                  "required": true,
+                  "description": "",
+                  "schema": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "name": "description",
+                  "in": "path",
+                  "required": true,
+                  "description": "",
+                  "schema": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "name": "image",
+                  "in": "path",
+                  "required": true,
+                  "description": "",
+                  "schema": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "name": "parent_id",
+                  "in": "path",
+                  "required": true,
+                  "description": "",
+                  "schema": {
+                    "type": "integer"
+                  }
+                }
+              ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "v1"
+                ]
+            },
+            "patch": {
+                "summary": "Update single category",
+                "description": "",
+                "deprecated": false,
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Category"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "(Unauthorized) Invalid or missing Access Token"
+                    }
+                },
+              "parameters": [
+                {
+                  "name": "name",
+                  "in": "path",
+                  "required": true,
+                  "description": "",
+                  "schema": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "name": "url_key",
+                  "in": "path",
+                  "required": true,
+                  "description": "",
+                  "schema": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "name": "description",
+                  "in": "path",
+                  "required": true,
+                  "description": "",
+                  "schema": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "name": "image",
+                  "in": "path",
+                  "required": true,
+                  "description": "",
+                  "schema": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "name": "parent_id",
+                  "in": "path",
+                  "required": true,
+                  "description": "",
+                  "schema": {
+                    "type": "integer"
+                  }
+                }
+              ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "v1"
+                ]
+            },
+            "delete": {
+                "summary": "Destroy single category",
+                "description": "",
+                "deprecated": false,
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Category"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "(Unauthorized) Invalid or missing Access Token"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "category",
+                        "in": "path",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "v1"
+                ]
+            }
+        },
+        "/v1/product": {
+            "get": {
+                "summary": "Show single product",
+                "description": "",
+                "deprecated": false,
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Product"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "(Unauthorized) Invalid or missing Access Token"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "v1"
+                ]
+            },
+            "post": {
+                "summary": "Save single product",
+                "description": "",
+                "deprecated": false,
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Product"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "(Unauthorized) Invalid or missing Access Token"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "v1"
+                ]
+            }
+        },
+        "/v1/product/{product}": {
+            "get": {
+                "summary": "Show single product",
+                "description": "",
+                "deprecated": false,
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Product"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "(Unauthorized) Invalid or missing Access Token"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "product",
+                        "in": "path",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "v1"
+                ]
+            },
+            "put": {
+                "summary": "Update single product",
+                "description": "",
+                "deprecated": false,
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Product"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "(Unauthorized) Invalid or missing Access Token"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "product",
+                        "in": "path",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "v1"
+                ]
+            },
+            "patch": {
+                "summary": "Update single product",
+                "description": "",
+                "deprecated": false,
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Product"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "(Unauthorized) Invalid or missing Access Token"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "product",
+                        "in": "path",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "v1"
+                ]
+            },
+            "delete": {
+                "summary": "Destroy single product",
+                "description": "",
+                "deprecated": false,
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Product"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "(Unauthorized) Invalid or missing Access Token"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "product",
+                        "in": "path",
+                        "required": true,
+                        "description": "",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "tags": [
+                    "v1"
+                ]
+            }
+        }
+    },
+    "tags": [],
+    "components": {
+        "schemas": {
+            "AttributeProduct": {
+                "type": "object",
+                "required": [
+                    "hose_id",
+                    "id",
+                    "maintenance_id",
+                    "manufacturer_id",
+                    "name",
+                    "override_opera",
+                    "sku",
+                    "type"
+                ],
+                "properties": {
+                    "angle_in_deg": {
+                        "type": "integer",
+                        "example": 1432567465
+                    },
+                    "bar": {
+                        "type": "integer",
+                        "example": 1701808483
+                    },
+                    "bullet_point_1": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "bullet_point_2": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "bullet_point_3": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "bullet_point_4": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "categories": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "clearance": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "clothing_size": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "colour": {
+                        "type": "integer",
+                        "example": 1864256496
+                    },
+                    "configurable_product_parent_id": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "country_of_manufacture": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "created_at": {
+                        "type": "datetime",
+                        "example": "2021-11-13 18:39:11"
+                    },
+                    "currency": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "description": {
+                        "type": "text",
+                        "example": "a long text"
+                    },
+                    "diameter": {
+                        "type": "integer",
+                        "example": 1177119794
+                    },
+                    "dn_internal_diameter": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "easyturn": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "featured_position": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "flow_and_pressure": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "foam_value": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "hose_clamp_size": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "hose_id": {
+                        "type": "bigint",
+                        "example": 3366495417755059870
+                    },
+                    "hose_type": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "id": {
+                        "type": "bigint",
+                        "example": 6285469038361268091
+                    },
+                    "inlet": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "inlet_outlet": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "is_featured": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "maintenance_id": {
+                        "type": "bigint",
+                        "example": 8000280985134765116
+                    },
+                    "manufacturer_id": {
+                        "type": "bigint",
+                        "example": 4624833974228022389
+                    },
+                    "material": {
+                        "type": "integer",
+                        "example": 1478160081
+                    },
+                    "max_lpm": {
+                        "type": "integer",
+                        "example": 1358471163
+                    },
+                    "max_temperature": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "meta_description": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "meta_keywords": {
+                        "type": "text",
+                        "example": "a long text"
+                    },
+                    "meta_title": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "msrp": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "nozzle_value": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "o_ring_thickness": {
+                        "type": "integer",
+                        "example": 1863712375
+                    },
+                    "old_sku": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "opera_sku": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "orifice_size": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "outlet": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "override_opera": {
+                        "type": "integer",
+                        "example": 1040836916
+                    },
+                    "pack_size": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "pdf_title_1": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "pdf_title_2": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "pdf_title_3": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "pdf_title_4": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "poa": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "poa_price": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "price": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "priority": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "product_videos": {
+                        "type": "text",
+                        "example": "a long text"
+                    },
+                    "related_products": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "rpm": {
+                        "type": "integer",
+                        "example": 1612141752
+                    },
+                    "select_nozzle_size": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "shoe_size": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "short_description": {
+                        "type": "text",
+                        "example": "a long text"
+                    },
+                    "size_and_angle": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "sku": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "special_price": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "status": {
+                        "type": "integer",
+                        "example": 1289324789
+                    },
+                    "stock_status": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "tech_spec_1": {
+                        "type": "text",
+                        "example": "a long text"
+                    },
+                    "tech_spec_2": {
+                        "type": "text",
+                        "example": "a long text"
+                    },
+                    "tech_spec_3": {
+                        "type": "text",
+                        "example": "a long text"
+                    },
+                    "thread": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "type": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "updated_at": {
+                        "type": "datetime",
+                        "example": "2021-11-13 18:39:11"
+                    },
+                    "url_key": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "visibility": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "voltage": {
+                        "type": "integer",
+                        "example": 1671828536
+                    },
+                    "wheel_style": {
+                        "type": "string",
+                        "example": "string"
+                    }
+                }
+            },
+            "Category": {
+                "type": "object",
+                "required": [
+                    "id",
+                    "name",
+                    "parent_id",
+                    "url_key"
+                ],
+                "properties": {
+                    "created_at": {
+                        "type": "datetime",
+                        "example": "2021-11-13 18:39:11"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "id": {
+                        "type": "bigint",
+                        "example": 6857150789699154028
+                    },
+                    "image": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "parent_id": {
+                        "type": "integer",
+                        "example": 1731290648
+                    },
+                    "updated_at": {
+                        "type": "datetime",
+                        "example": "2021-11-13 18:39:11"
+                    },
+                    "url_key": {
+                        "type": "string",
+                        "example": "string"
+                    }
+                }
+            },
+            "HoseProduct": {
+                "type": "object",
+                "required": [
+                    "id"
+                ],
+                "properties": {
+                    "created_at": {
+                        "type": "datetime",
+                        "example": "2021-11-13 18:39:11"
+                    },
+                    "hose_application": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "hose_colour": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "hose_inlet": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "hose_length": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "hose_outlet": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "id": {
+                        "type": "bigint",
+                        "example": 2522522838083410177
+                    },
+                    "updated_at": {
+                        "type": "datetime",
+                        "example": "2021-11-13 18:39:11"
+                    }
+                }
+            },
+            "MaintenanceProduct": {
+                "type": "object",
+                "required": [
+                    "id"
+                ],
+                "properties": {
+                    "created_at": {
+                        "type": "datetime",
+                        "example": "2021-11-13 18:39:11"
+                    },
+                    "id": {
+                        "type": "bigint",
+                        "example": 4622167777098567627
+                    },
+                    "maintenance_video_title_1": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "maintenance_video_title_2": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "maintenance_video_title_3": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "maintenance_video_title_4": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "maintenance_video_url_1": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "maintenance_video_url_2": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "maintenance_video_url_3": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "maintenance_video_url_4": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "maintenance_videos": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "updated_at": {
+                        "type": "datetime",
+                        "example": "2021-11-13 18:39:12"
+                    }
+                }
+            },
+            "ManufacturerProduct": {
+                "type": "object",
+                "required": [
+                    "id"
+                ],
+                "properties": {
+                    "created_at": {
+                        "type": "datetime",
+                        "example": "2021-11-13 18:39:12"
+                    },
+                    "id": {
+                        "type": "bigint",
+                        "example": 5584657146289180063
+                    },
+                    "manufacturer_number_1": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "manufacturer_number_10": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "manufacturer_number_2": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "manufacturer_number_3": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "manufacturer_number_4": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "manufacturer_number_5": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "manufacturer_number_6": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "manufacturer_number_7": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "manufacturer_number_8": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "manufacturer_number_9": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "updated_at": {
+                        "type": "datetime",
+                        "example": "2021-11-13 18:39:12"
+                    }
+                }
+            },
+            "Product": {
+                "type": "object",
+                "required": [
+                    "attribute_id",
+                    "category_id",
+                    "id"
+                ],
+                "properties": {
+                    "attribute_id": {
+                        "type": "bigint",
+                        "example": 4653404979861422073
+                    },
+                    "category_id": {
+                        "type": "bigint",
+                        "example": 8991779891329659737
+                    },
+                    "created_at": {
+                        "type": "datetime",
+                        "example": "2021-11-13 18:39:12"
+                    },
+                    "id": {
+                        "type": "bigint",
+                        "example": 5190228616266424009
+                    },
+                    "updated_at": {
+                        "type": "datetime",
+                        "example": "2021-11-13 18:39:12"
+                    }
+                }
+            },
+            "User": {
+                "type": "object",
+                "required": [
+                    "email",
+                    "id",
+                    "name"
+                ],
+                "properties": {
+                    "created_at": {
+                        "type": "datetime",
+                        "example": "2021-11-13 18:39:12"
+                    },
+                    "email": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "email_verified_at": {
+                        "type": "datetime",
+                        "example": "2021-11-13 18:39:12"
+                    },
+                    "id": {
+                        "type": "bigint",
+                        "example": 8855655854566593109
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "updated_at": {
+                        "type": "datetime",
+                        "example": "2021-11-13 18:39:12"
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        }
+    }
+}

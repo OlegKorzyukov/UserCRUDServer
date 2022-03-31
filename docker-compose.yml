@@ -1,0 +1,76 @@
+version: '3.8'
+services:
+    php:
+        build:
+            context: "docker/php"
+            dockerfile: "Dockerfile"
+        restart: always
+        container_name: user_crud_server_php
+        volumes:
+            - './project:/var/www/html'
+        depends_on:
+            - mysql
+        env_file:
+            - .env
+        ports:
+            - "9000:9000"
+        networks:
+            - user_crud
+
+    nginx:
+        image: nginx:1.21.3-alpine
+        restart: always
+        container_name: user_crud_server_nginx
+        volumes:
+            - './project:/var/www/html'
+            - './docker/nginx/default.conf:/etc/nginx/conf.d/default.conf'
+            - './docker/nginx/nginx.conf:/etc/nginx/nginx.conf'
+        environment:
+            - TZ
+        links:
+            - php
+        ports:
+            - "80:80"
+        networks:
+            - user_crud
+
+    mysql:
+        image: mysql:8.0
+        container_name: user_crud_server_mysql
+        volumes:
+            - 'db:/var/lib/mysql'
+        restart: always
+        command: mysqld --sql_mode=""
+        environment:
+            - MYSQL_ROOT_PASSWORD
+            - MYSQL_DATABASE=${DATABASE_NAME}
+            - MYSQL_USER=${DATABASE_USER}
+            - MYSQL_PASSWORD=${DATABASE_PASSWORD}
+            - TZ
+        ports:
+            - "3306:3306"
+        networks:
+            - user_crud
+        healthcheck:
+            test: mysqladmin -uroot -p${MYSQL_ROOT_PASSWORD} status >/dev/null 2>/dev/null
+            interval: 10s
+            timeout: 10s
+            retries: 5
+
+    apidoc:
+        image: swaggerapi/swagger-ui
+        container_name: user_crud_server_swagger
+        restart: always
+        volumes:
+            - './documentation/:/usr/share/nginx/html/documentation/'
+        environment:
+            URLS: "[
+                { url: './documentation/swagger.json', name: 'API-v1' },
+            ]"
+        networks:
+            - user_crud
+volumes:
+    rabbitmq:
+    db:
+networks:
+    user_crud:
