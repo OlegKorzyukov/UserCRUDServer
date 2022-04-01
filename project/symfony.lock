@@ -116,6 +116,9 @@
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.7"
     },
+    "fzaninotto/faker": {
+        "version": "v1.5.0"
+    },
     "laminas/laminas-code": {
         "version": "4.5.1"
     },
@@ -365,6 +368,12 @@
     "symfony/polyfill-php81": {
         "version": "v1.25.0"
     },
+    "symfony/property-access": {
+        "version": "v6.0.5"
+    },
+    "symfony/property-info": {
+        "version": "v6.0.3"
+    },
     "symfony/proxy-manager-bridge": {
         "version": "v6.0.6"
     },
@@ -383,6 +392,9 @@
     },
     "symfony/runtime": {
         "version": "v6.0.5"
+    },
+    "symfony/serializer": {
+        "version": "v6.0.6"
     },
     "symfony/service-contracts": {
         "version": "v2.4.1"

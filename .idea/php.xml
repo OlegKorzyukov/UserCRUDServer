@@ -107,6 +107,10 @@
       <path value="$PROJECT_DIR$/project/vendor/symfony/validator" />
       <path value="$PROJECT_DIR$/project/vendor/doctrine/data-fixtures" />
       <path value="$PROJECT_DIR$/project/vendor/doctrine/doctrine-fixtures-bundle" />
+      <path value="$PROJECT_DIR$/project/vendor/fzaninotto/faker" />
+      <path value="$PROJECT_DIR$/project/vendor/symfony/serializer" />
+      <path value="$PROJECT_DIR$/project/vendor/symfony/property-info" />
+      <path value="$PROJECT_DIR$/project/vendor/symfony/property-access" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.0" />

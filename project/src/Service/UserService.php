@@ -8,7 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityNotFoundException;
 
-class UserCRUDService
+class UserService
 {
     private EntityManagerInterface $entityManager;
     private UserValidator $validator;

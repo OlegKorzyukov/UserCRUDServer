@@ -34,8 +34,15 @@ class User
     private string $email;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Group")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="SET NULL")
+     * @ORM\ManyToMany(targetEntity="Group")
+     * @ORM\JoinTable(name="users_groups",
+     *      joinColumns={
+     *          @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * },
+     *      inverseJoinColumns={
+     *          @ORM\JoinColumn(name="group_id", referencedColumnName="id")
+     * }
+     *      )
      */
     private Collection $groups;
 
