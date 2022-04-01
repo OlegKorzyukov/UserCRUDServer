@@ -16,8 +16,8 @@ class UserService
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        UserValidator $validator,
-        UserRepository $repository
+        UserValidator         $validator,
+        UserRepository         $repository
     ) {
         $this->entityManager = $entityManager;
         $this->validator = $validator;

@@ -65,7 +65,7 @@ services:
             - './documentation/:/usr/share/nginx/html/documentation/'
         environment:
             URLS: "[
-                { url: './documentation/swagger.json', name: 'API-v1' },
+                { url: './documentation/v1.yml', name: 'API-v1' },
             ]"
         networks:
             - user_crud

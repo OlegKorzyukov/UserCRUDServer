@@ -1,0 +1,232 @@
+openapi: 3.0.1
+info:
+  title: UserCrudServer
+  description: User CRUD api
+  version: '1.0'
+servers:
+  - url: /
+paths:
+  '/api/v1/users':
+    get:
+      tags:
+        - Users
+      summary: Returns users list
+      responses:
+        200:
+          description: Data of all users list
+          content:
+            'application/json; charset=utf-8':
+              schema:
+                properties:
+                  data:
+                    description: List users
+                    type: array
+                    items:
+                      $ref: ''
+    post:
+      tags:
+        - Users
+      summary: Create new user
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: John Rambo
+                  description: Name of user
+                email:
+                  type: string
+                  example: test@mail.com
+                  description: Email of user
+                  uniqueItems: true
+        required: true
+      responses:
+        201:
+          description: User has been created
+          content:
+            'application/json; charset=utf-8':
+              schema:
+                properties:
+                  data:
+                    description: Main object of data
+                    type: array
+                    items:
+                      $ref: ''
+        422:
+          description: User not found
+          content: { }
+  '/api/v1/users/{id}':
+    put:
+      tags:
+        - Users
+      summary: Change data in selected user
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            pattern: /^\d{1-10}$/
+            type: integer
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Jonh Rambo
+                  description: Name of user
+                email:
+                  type: string
+                  example: test@mail.com
+                  description: Email of user
+                  uniqueItems: true
+      responses:
+        200:
+          description: Data on user has been updated
+          content:
+            'application/json; charset=utf-8':
+              schema:
+                properties:
+                  data:
+                    description: Main object of data
+                    type: array
+                    items:
+                      $ref: ''
+        422:
+          description: User not found
+          content: { }
+    delete:
+      tags:
+        - Users
+      summary: Delete users
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+              pattern: /^\d{1-10}$/
+              type: integer
+      responses:
+        204:
+          description: User is deleted
+          content: { }
+        422:
+          description: User not found
+          content: {}
+
+  '/api/v1/groups':
+    get:
+      tags:
+        - Groups
+      summary: Returns groups list
+      responses:
+        200:
+          description: Data of all groups list
+          content:
+            'application/json; charset=utf-8':
+              schema:
+                properties:
+                  data:
+                    description: List group
+                    type: array
+                    items:
+                      $ref: ''
+    post:
+      tags:
+        - Groups
+      summary: Create new group
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: TestGroup
+                  description: Name of group
+                  required: true
+        required: true
+      responses:
+        201:
+          description: Group has been created
+          content:
+            'application/json; charset=utf-8':
+              schema:
+                properties:
+                  data:
+                    description: Main object of data
+                    type: array
+                    items:
+                      $ref: ''
+        422:
+          description: Group not found
+          content: { }
+  '/api/v1/groups/{id}':
+    put:
+      tags:
+        - Groups
+      summary: Change data in selected group
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            pattern: /^\d{1-10}$/
+            type: integer
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: TestGroup
+                  description: Name of group
+      responses:
+        200:
+          description: Data on group has been updated
+          content:
+            'application/json; charset=utf-8':
+              schema:
+                properties:
+                  data:
+                    description: Main object of data
+                    type: array
+                    items:
+                      $ref: ''
+        422:
+          description: Group not found
+          content: { }
+    delete:
+      tags:
+        - Groups
+      summary: Delete group
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            pattern: /^\d{1-10}$/
+            type: integer
+      responses:
+        204:
+          description: Group is deleted
+          content: { }
+        422:
+          description: Group not found
+          content: { }
+
+components:
+  securitySchemes:
+    token:
+      type: apiKey
+      description: Required integration token for make request
+      name: X-Integration-Token
+      in: header

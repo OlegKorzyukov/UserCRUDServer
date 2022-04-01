@@ -34,7 +34,7 @@ class User
     private string $email;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Group")
+     * @ORM\ManyToMany(targetEntity="Group", inversedBy="users", cascade={"remove"})
      * @ORM\JoinTable(name="users_groups",
      *      joinColumns={
      *          @ORM\JoinColumn(name="user_id", referencedColumnName="id")
