@@ -79,11 +79,6 @@ class User
         $this->email = $email;
     }
 
-    public function getGroups(): Collection
-    {
-        return $this->groups;
-    }
-
     public function addGroup(Group $group): void
     {
         $this->groups[] = $group;

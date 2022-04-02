@@ -54,11 +54,6 @@ class Group
         $this->name = $name;
     }
 
-    public function getUsers(): Collection
-    {
-        return $this->users;
-    }
-
     public function addUser(User $user): void
     {
         $this->users[] = $user;
