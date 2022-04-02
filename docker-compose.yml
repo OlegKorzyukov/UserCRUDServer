@@ -12,8 +12,6 @@ services:
             - mysql
         env_file:
             - .env
-        ports:
-            - "9000:9000"
         networks:
             - user_crud
 
@@ -29,8 +27,6 @@ services:
             - TZ
         links:
             - php
-        ports:
-            - "80:80"
         networks:
             - user_crud
 
@@ -47,8 +43,6 @@ services:
             - MYSQL_USER=${DATABASE_USER}
             - MYSQL_PASSWORD=${DATABASE_PASSWORD}
             - TZ
-        ports:
-            - "3306:3306"
         networks:
             - user_crud
         healthcheck:
