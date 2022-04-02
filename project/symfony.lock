@@ -286,9 +286,6 @@
     "symfony/doctrine-bridge": {
         "version": "v6.0.6"
     },
-    "symfony/dotenv": {
-        "version": "v6.0.5"
-    },
     "symfony/error-handler": {
         "version": "v6.0.3"
     },
