@@ -64,7 +64,6 @@ services:
         networks:
             - user_crud
 volumes:
-    rabbitmq:
     db:
 networks:
     user_crud:
