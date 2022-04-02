@@ -28,10 +28,11 @@ class Group
     private string $name;
 
     /**
-     * Many Groups have Many Users.
-     * @ORM\ManyToMany(targetEntity="User", mappedBy="groups", cascade={"remove"})
+     * @var Collection|Group[]
+     *
+     * @ORM\ManyToMany(targetEntity="User", mappedBy="groups", cascade={"remove", "persist"})
      */
-    private Collection $users;
+    private $users;
 
     public function __construct(string $name)
     {
@@ -56,5 +57,10 @@ class Group
     public function getUsers(): Collection
     {
         return $this->users;
+    }
+
+    public function addUser(User $user): void
+    {
+        $this->users[] = $user;
     }
 }

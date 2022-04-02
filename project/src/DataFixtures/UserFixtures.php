@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Group;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use App\Entity\User;
@@ -20,8 +21,20 @@ class UserFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         for ($i = 0; $i < 50; $i++) {
-            $manager->persist(new User($this->faker->name, $this->faker->email));
+            /** @var Group $group */
+            $group = $this->getReference('group_' . rand(0, 9));
+
+            $user = new User($this->faker->name, $this->faker->email);
+            $user->addGroup($group);
+
+            $this->addReference('user_' . $i, $user);
+            $manager->persist($user);
         }
         $manager->flush();
+    }
+
+    public function getDependencies(): array
+    {
+        return [GroupFixtures::class];
     }
 }

@@ -34,7 +34,9 @@ class User
     private string $email;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Group", inversedBy="users", cascade={"remove"})
+     * @var Collection|Group[]
+     *
+     * @ORM\ManyToMany(targetEntity="Group", inversedBy="users", cascade={"remove", "persist"})
      * @ORM\JoinTable(name="users_groups",
      *      joinColumns={
      *          @ORM\JoinColumn(name="user_id", referencedColumnName="id")
@@ -44,7 +46,7 @@ class User
      * }
      *      )
      */
-    private Collection $groups;
+    private $groups;
 
     public function __construct(string $name, string $email)
     {
@@ -80,5 +82,11 @@ class User
     public function getGroups(): Collection
     {
         return $this->groups;
+    }
+
+    public function addGroup(Group $group): void
+    {
+        $this->groups[] = $group;
+        $group->addUser($this);
     }
 }

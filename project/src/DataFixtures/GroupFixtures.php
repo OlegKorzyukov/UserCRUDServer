@@ -12,6 +12,7 @@ class GroupFixtures extends Fixture
     {
         for ($i = 0; $i < 10; $i++) {
             $group = new Group('group_' . $i);
+            $this->addReference('group_' . $i, $group);
             $manager->persist($group);
         }
         $manager->flush();
