@@ -67,3 +67,5 @@ volumes:
     db:
 networks:
     user_crud:
+        name: user_crud
+        driver: bridge
