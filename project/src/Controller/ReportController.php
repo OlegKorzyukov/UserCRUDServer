@@ -28,13 +28,17 @@ class ReportController extends AbstractController
     {
         //use rabbitmq
         try {
-            return new BinaryFileResponse(new \SplFileInfo($this->reportService->generateReport()), 200, [
-                'Content-Type' => 'text/csv',
-                'Content-Disposition' => 'attachment; filename=' . ReportService::getFilename(),
-                'Content-Transfer-Encoding' => 'binary',
-                'Expires' => 0,
-                'Cache-Control' => 'must-revalidate',
-            ]);
+            return new BinaryFileResponse(
+                new \SplFileInfo($this->reportService->generateReport()),
+                Response::HTTP_OK,
+                [
+                    'Content-Type' => 'text/csv',
+                    'Content-Disposition' => 'attachment; filename=' . ReportService::getFilename(),
+                    'Content-Transfer-Encoding' => 'binary',
+                    'Expires' => 0,
+                    'Cache-Control' => 'must-revalidate',
+                ]
+            );
         } catch (Exception | ExceptionInterface $e) {
             return new JsonResponse(['data' => ['message' => "File was not found"]], Response::HTTP_NOT_FOUND);
         }

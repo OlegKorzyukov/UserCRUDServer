@@ -19,10 +19,20 @@ paths:
               schema:
                 properties:
                   data:
-                    description: List users
+                    description: Main object of data
                     type: array
                     items:
-                      $ref: ''
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 12
+                        name:
+                          type: string
+                          example: "John Rambo"
+                        email:
+                          type: string
+                          example: 'test@mail.com'
     post:
       tags:
         - Users
@@ -52,12 +62,24 @@ paths:
                 properties:
                   data:
                     description: Main object of data
-                    type: array
-                    items:
-                      $ref: ''
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: 'User is created'
         422:
           description: User not found
-          content: { }
+          content:
+            'application/json; charset=utf-8':
+              schema:
+                properties:
+                  data:
+                    description: Main object of data
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: 'User not found'
   '/api/v1/users/{id}':
     put:
       tags:
@@ -94,12 +116,24 @@ paths:
                 properties:
                   data:
                     description: Main object of data
-                    type: array
-                    items:
-                      $ref: ''
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: 'User is updated'
         422:
           description: User not found
-          content: { }
+          content:
+            'application/json; charset=utf-8':
+              schema:
+                properties:
+                  data:
+                    description: Main object of data
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: 'User not found'
     delete:
       tags:
         - Users
@@ -114,10 +148,30 @@ paths:
       responses:
         204:
           description: User is deleted
-          content: { }
+          content:
+            'application/json; charset=utf-8':
+              schema:
+                properties:
+                  data:
+                    description: Main object of data
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: 'User is deleted'
         422:
           description: User not found
-          content: {}
+          content:
+            'application/json; charset=utf-8':
+              schema:
+                properties:
+                  data:
+                    description: Main object of data
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: 'User not found'
 
   '/api/v1/groups':
     get:
@@ -135,7 +189,14 @@ paths:
                     description: List group
                     type: array
                     items:
-                      $ref: ''
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 12
+                        name:
+                          type: string
+                          example: "group_0"
     post:
       tags:
         - Groups
@@ -161,12 +222,24 @@ paths:
                 properties:
                   data:
                     description: Main object of data
-                    type: array
-                    items:
-                      $ref: ''
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: 'Group is created'
         422:
           description: Group not found
-          content: { }
+          content:
+            'application/json; charset=utf-8':
+              schema:
+                properties:
+                  data:
+                    description: Main object of data
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: 'Validate exception'
   '/api/v1/groups/{id}':
     put:
       tags:
@@ -198,12 +271,24 @@ paths:
                 properties:
                   data:
                     description: Main object of data
-                    type: array
-                    items:
-                      $ref: ''
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: 'Group is updated'
         422:
           description: Group not found
-          content: { }
+          content:
+            'application/json; charset=utf-8':
+              schema:
+                properties:
+                  data:
+                    description: Main object of data
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: 'Group not found'
     delete:
       tags:
         - Groups
@@ -218,10 +303,43 @@ paths:
       responses:
         204:
           description: Group is deleted
-          content: { }
+          content:
+            'application/json; charset=utf-8':
+              schema:
+                properties:
+                  data:
+                    description: Main object of data
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: 'Group is deleted'
         422:
           description: Group not found
-          content: { }
+          content:
+            'application/json; charset=utf-8':
+              schema:
+                properties:
+                  data:
+                    description: Main object of data
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: 'Group not found'
+
+  '/api/v1/reports':
+    get:
+      tags:
+        - Reports
+      summary: Get reports file
+      responses:
+        200:
+          description: Generate report is success
+          content: {}
+        404:
+          description: File not found
+          content: {}
 
 components:
   securitySchemes:

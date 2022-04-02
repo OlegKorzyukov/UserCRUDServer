@@ -28,6 +28,8 @@ Run:
 `docker-compose exec php /bin/bash -c "php bin/console doctrine:fixtures:load --no-interaction"`
 
 ---
+Rename `docker-compose.override.yml.dist` to `docker-compose.override.yml`
+
 If need it, change services port in file `docker-compose.override.yml`
 
 Links
