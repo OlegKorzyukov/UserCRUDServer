@@ -32,6 +32,8 @@ Rename `docker-compose.override.yml.dist` to `docker-compose.override.yml`
 
 If need it, change services port in file `docker-compose.override.yml`
 
+Rename `.env.dist` to `.env`
+
 Links
 ============================================
 http://127.0.0.1/api/doc - to Swagger
